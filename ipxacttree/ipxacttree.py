@@ -48,10 +48,10 @@ class IPXACTTree():
                 yield from dfs_internal(child)
         yield from dfs_internal(self.root)
 
+    def __str__(self):
+        return "".join([("\t" * node.level)+ f"{node.tag}: {node.text}\n"  for node in self])
 
     def findall(self,tag):
         all = [node  for node in self if tag == node.tag]
         return all
 
-    def __str__(self):
-        return "".join([("\t" * node.level)+ f"{node.tag}: {node.text}\n"  for node in self])

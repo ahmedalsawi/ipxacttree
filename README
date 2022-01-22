@@ -1,0 +1,15 @@
+This is generic IPXACT parser that generate a wrapper tree over XML for easier iteration.
+
+# usage
+
+```bash
+pip install .
+```
+
+```bash
+ipxacttree <PATH-TO-IPXACT>
+```
+
+```verilog
+    it = IPXACTTree(args.ipxactfile)
+```
