@@ -21,11 +21,18 @@ class Node():
         node.level = self.level + 1
 
     def __iter__(self):
-        for child in self.children:
-            yield child
+        def dfs_internal(node):
+            yield node
+            for child in node.children:
+                yield from dfs_internal(child)
+        yield from dfs_internal(self)
 
     def __str__(self):
-        return f"[{self.level}]{self.tag}[{len(self.children)}]: {self.text}"
+        return "".join([("\t" * node.level)+ f"{node.tag}: {node.text}\n"  for node in self])
+
+    def findall(self,tag):
+        all = [node  for node in self if tag == node.tag]
+        return all
 
 class IPXACTTree():
     def __init__(self,ipxactfile):
@@ -42,16 +49,12 @@ class IPXACTTree():
         iterate_tree(xmlroot,self.root)
 
     def __iter__(self):
-        def dfs_internal(node):
+        for node in self.root:
             yield node
-            for child in node.children:
-                yield from dfs_internal(child)
-        yield from dfs_internal(self.root)
 
     def __str__(self):
-        return "".join([("\t" * node.level)+ f"{node.tag}: {node.text}\n"  for node in self])
+        return str(self.root)
 
     def findall(self,tag):
-        all = [node  for node in self if tag == node.tag]
+        all = self.root.findall(tag)
         return all
-

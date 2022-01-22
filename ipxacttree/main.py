@@ -1,4 +1,5 @@
 import argparse
+import json
 
 def main():
     from ipxacttree.ipxacttree import IPXACTTree
